@@ -1,23 +1,22 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        map<char , char> st;
-        map<char , char> ts;
-
+        // if the length of s different from lenght of t thay can not be isomorphic
+        if(s.size() != t.size())
+            return false;
+        // hash map solution
+        map<char , char> smp , tmp;
         for(int i = 0 ; i < s.size() ; i++)
         {
-            char c1 = s[i] , c2 = t[i];
+            char s_ch = s[i] , t_ch = t[i];
+            if(!(smp.find(s_ch) != smp.end()))
+                smp[s_ch] = t_ch;
+            if(!(tmp.find(t_ch) != tmp.end()))
+                tmp[t_ch] = s_ch;
 
-            if((st.find(c1) != st.end() && st[c1] != c2) || (ts.find(c2) != ts.end() && ts[c2] != c1))
+            if(smp[s_ch] != t_ch || tmp[t_ch] != s_ch)
                 return false;
-
-            st[c1] = c2;
-            ts[c2] = c1;
-        }
-
+        } 
         return true;
-
-
-
     }
 };
